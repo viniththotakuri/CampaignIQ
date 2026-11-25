@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampaignIQ — Banking Call Center Intelligence System</title>
+  
+  <!-- Typography: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js for Database Visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  
+  <!-- Custom Design System -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- ======================================================================
+         SIDEBAR NAVIGATION
+         ====================================================================== -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-title">CampaignIQ</span>
+          <span class="brand-badge">PS-8</span>
+        </div>
+      </div>
+
+      <!-- Current Role Indicator -->
+      <div class="sidebar-role-indicator">
+        <div class="role-pill leader" id="sidebarRolePill">
+          <span class="role-dot"></span>
+          <span id="sidebarRoleLabel">Team Leader</span>
+        </div>
+        <button class="btn btn-sm btn-outline" id="btnQuickSwitch" title="Switch User Role" style="padding: 0.2rem 0.5rem; font-size: 0.72rem;">
+          Switch
+        </button>
+      </div>
+
+      <!-- Navigation Items -->
+      <nav class="sidebar-nav">
+        
+        <!-- TEAM LEADER MENU -->
+        <div id="navGroupLeader">
+          <div class="nav-section-title">Operations</div>
+          
+          <a class="nav-item active" data-view="leader-dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Dashboard</span>
+          </a>
+
+          <a class="nav-item" data-view="campaigns">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line>
+            </svg>
+            <span>Campaigns</span>
+          </a>
+
+          <a class="nav-item" data-view="predictions">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            <span>Prioritization</span>
+          </a>
+
+          <a class="nav-item" data-view="assignments">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline>
+            </svg>
+            <span>Workload Assignment</span>
+          </a>
+
+          <div class="nav-section-title">Monitoring</div>
+
+          <a class="nav-item" data-view="agents">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>Calling Agents</span>
+          </a>
+
+          <a class="nav-item" data-view="calls">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Call Tracking</span>
+          </a>
+
+          <a class="nav-item" data-view="followups">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Follow-ups</span>
+          </a>
+
+          <a class="nav-item" data-view="analytics">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>Performance Analytics</span>
+          </a>
+
+          <a class="nav-item" data-view="customers">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Customer Database</span>
+          </a>
+        </div>
+
+        <!-- CALLING AGENT MENU -->
+        <div id="navGroupAgent" style="display: none;">
+          <div class="nav-section-title">My Workspace</div>
+
+          <a class="nav-item active" data-view="agent-dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>My Dashboard</span>
+          </a>
+
+          <a class="nav-item" data-view="agent-queue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>My Calling Queue</span>
+          </a>
+
+          <a class="nav-item" data-view="agent-history">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span>My Call History</span>
+          </a>
+
+          <a class="nav-item" data-view="agent-followups">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>My Follow-ups</span>
+          </a>
+
+          <a class="nav-item" data-view="agent-performance">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>My Performance</span>
+          </a>
+        </div>
+
+      </nav>
+
+      <!-- Sidebar Footer (Active User Profile) -->
+      <div class="sidebar-footer">
+        <div class="user-profile-mini">
+          <div class="avatar" id="sidebarAvatar">VM</div>
+          <div>
+            <div class="user-meta-name" id="sidebarUserName">Vikram Malhotra</div>
+            <div class="user-meta-role" id="sidebarUserRole">Call Center Leader</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ======================================================================
+         MAIN APPLICATION SHELL
+         ====================================================================== -->
+    <div class="main-wrapper">
+      
+      <!-- Top Navigation -->
+      <header class="top-navbar">
+        <div class="top-navbar-left">
+          <h1 class="page-title" id="pageTitle">Team Leader Dashboard</h1>
+          <div class="global-search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="globalSearchInput" placeholder="Search customer or phone...">
+          </div>
+        </div>
+
+        <div class="top-navbar-right">
+          <div class="live-indicator">
+            <span class="pulse-dot"></span>
+            <span>ML Engine Active</span>
+          </div>
+          <button class="btn btn-outline btn-sm" id="btnRefreshData">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            Refresh
+          </button>
+        </div>
+      </header>
+
+      <!-- Dynamic Content Views Container -->
+      <main class="content-area">
+
+        <!-- ==================================================================
+             VIEW 1: TEAM LEADER DASHBOARD
+             ================================================================== -->
+        <section class="view-section active" id="view-leader-dashboard">
+          
+          <!-- KPI Cards Grid -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Total Pool</div>
+                <div class="kpi-value" id="kpiTotalCustomers">--</div>
+                <div class="kpi-subtext">Bank Customers in DB</div>
+              </div>
+              <div class="kpi-icon-badge blue">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Calls Completed</div>
+                <div class="kpi-value" id="kpiCallsCompleted">--</div>
+                <div class="kpi-subtext">Outcomes recorded</div>
+              </div>
+              <div class="kpi-icon-badge teal">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Subscribed Leads</div>
+                <div class="kpi-value" id="kpiSubscriptions">--</div>
+                <div class="kpi-subtext">Term deposit confirmed</div>
+              </div>
+              <div class="kpi-icon-badge green">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Conversion Rate</div>
+                <div class="kpi-value" id="kpiConversionRate">--%</div>
+                <div class="kpi-subtext">Subscription conversion</div>
+              </div>
+              <div class="kpi-icon-badge amber">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">High Priority Left</div>
+                <div class="kpi-value" id="kpiHighPriorityRemaining">--</div>
+                <div class="kpi-subtext">Uncontacted hot leads</div>
+              </div>
+              <div class="kpi-icon-badge rose">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Needs Attention Alerts Container -->
+          <div class="card" style="margin-bottom: 1.75rem;">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  Needs Attention
+                </h2>
+                <div class="card-subtitle">Urgent operational items requiring supervisor action</div>
+              </div>
+            </div>
+            <div id="needsAttentionContainer">
+              <div class="empty-state" style="padding: 1.5rem;">
+                <p>No urgent bottlenecks detected in the campaign operations.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Calling Agent Operational Workload & Results</h3>
+                  <div class="card-subtitle">Completed calls vs Subscriptions per agent</div>
+                </div>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chartAgentPerformance"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Call Outcomes</h3>
+                  <div class="card-subtitle">Disposition breakdown across campaign</div>
+                </div>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chartCallOutcomes"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Campaigns Table -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Active Telemarketing Campaigns</h3>
+                <div class="card-subtitle">Monitored term deposit drives</div>
+              </div>
+              <button class="btn btn-primary btn-sm" id="btnOpenNewCampaignModal">
+                + New Campaign
+              </button>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Campaign Name</th>
+                    <th>Target Quota</th>
+                    <th>Status</th>
+                    <th>Prioritized Customers</th>
+                    <th>Priority Breakdown</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboardCampaignsTbody">
+                  <tr><td colspan="6" style="text-align: center; color: var(--color-text-muted);">Loading campaigns...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             VIEW 2: CAMPAIGNS MANAGEMENT
+             ================================================================== -->
+        <section class="view-section" id="view-campaigns">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">Campaign Lifecycle Management</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Launch and score term deposit campaigns using the background ML engine</p>
+            </div>
+            <button class="btn btn-primary" id="btnOpenNewCampaignModal2">
+              + Launch New Campaign
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Campaign</th>
+                    <th>Target Calls</th>
+                    <th>Status</th>
+                    <th>Prioritized Pool</th>
+                    <th>High / Med / Low</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="allCampaignsTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 3: ML CUSTOMER PRIORITIZATION
+             ================================================================== -->
+        <section class="view-section" id="view-predictions">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">Customer Prioritization Queue</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Propensity scores generated by your friend's trained XGBoost pipeline</p>
+            </div>
+            <div class="filter-group">
+              <select class="form-control" id="selectPriorityFilter" style="width: 140px; height: 38px;">
+                <option value="">All Priorities</option>
+                <option value="High">High Priority</option>
+                <option value="Medium">Medium Priority</option>
+                <option value="Low">Low Priority</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Customer Name</th>
+                    <th>Demographics</th>
+                    <th>Phone</th>
+                    <th>Subscription Probability</th>
+                    <th>Priority</th>
+                    <th>ML Model Used</th>
+                    <th>Scenario</th>
+                  </tr>
+                </thead>
+                <tbody id="prioritizedCustomersTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.25rem; border-top: 1px solid var(--color-border); background: var(--color-surface);">
+              <div style="font-size: 0.85rem; color: var(--color-text-secondary);" id="predictionsPageInfo">
+                Showing records
+              </div>
+              <div style="display: flex; gap: 0.5rem;">
+                <button class="btn btn-sm btn-outline" id="btnPredictionsPrev" disabled>Previous</button>
+                <button class="btn btn-sm btn-outline" id="btnPredictionsNext" disabled>Next</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 4: WORKLOAD DISTRIBUTION & ASSIGNMENT
+             ================================================================== -->
+        <section class="view-section" id="view-assignments">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">Customer Assignment & Workload Distribution</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Balanced allocation of high-propensity leads to active agents</p>
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-primary" id="btnOpenDistributeModal">
+                Distribute Unassigned Customers
+              </button>
+            </div>
+          </div>
+
+          <!-- Assignment Statistics Cards -->
+          <div class="kpi-grid" style="margin-bottom: 1.25rem;">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Assigned Workload</div>
+                <div class="kpi-value" id="kpiAssignmentsTotal">--</div>
+                <div class="kpi-subtext">Total active assignments</div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Pending In Queue</div>
+                <div class="kpi-value" id="kpiAssignmentsPending">--</div>
+                <div class="kpi-subtext">Awaiting agent call</div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Completed Calls</div>
+                <div class="kpi-value" id="kpiAssignmentsCompleted">--</div>
+                <div class="kpi-subtext">Finished interactions</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Assigned Agent</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Assigned At</th>
+                  </tr>
+                </thead>
+                <tbody id="assignmentsListTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 5: CALLING AGENTS
+             ================================================================== -->
+        <section class="view-section" id="view-agents">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">Calling Agents Team</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Workload queues and individual conversion performance</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Agent Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Pending Queue</th>
+                    <th>Calls Completed</th>
+                    <th>Subscriptions</th>
+                    <th>Conversion Rate</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="agentsListTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 6: CALL TRACKING
+             ================================================================== -->
+        <section class="view-section" id="view-calls">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">Call Disposition Logs</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Audit record of all telemarketing conversations and outcomes</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Call ID</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Agent</th>
+                    <th>Disposition Outcome</th>
+                    <th>Duration (sec)</th>
+                    <th>Agent Remarks</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody id="callLogsTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 7: FOLLOW-UPS MANAGEMENT
+             ================================================================== -->
+        <section class="view-section" id="view-followups">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">Follow-Up Callbacks</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Scheduled customer callbacks and overdue tracking</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Assigned Agent</th>
+                    <th>Scheduled Date</th>
+                    <th>Notes</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="followupsTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 8: PERFORMANCE ANALYTICS
+             ================================================================== -->
+        <section class="view-section" id="view-analytics">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">Campaign Performance Analytics</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Comprehensive metrics computed directly from database records</p>
+            </div>
+          </div>
+
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Agent Comparison: Calls vs Subscriptions</h3>
+                </div>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chartAnalyticsAgents"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Outcome Distribution</h3>
+                </div>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chartAnalyticsOutcomes"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 9: CUSTOMER DATABASE
+             ================================================================== -->
+        <section class="view-section" id="view-customers">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">Customer Benchmark Pool</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">UCI Bank Marketing customer records available for campaigns</p>
+            </div>
+            <div class="filter-group">
+              <input type="text" id="inputCustomerSearch" class="form-control" placeholder="Search name, phone, job..." style="width: 220px; height: 38px;">
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Age</th>
+                    <th>Job</th>
+                    <th>Education</th>
+                    <th>Housing Loan</th>
+                    <th>Personal Loan</th>
+                    <th>Prev Contacts</th>
+                    <th>Prev Outcome</th>
+                  </tr>
+                </thead>
+                <tbody id="customersTableTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.25rem; border-top: 1px solid var(--color-border); background: var(--color-surface);">
+              <div style="font-size: 0.85rem; color: var(--color-text-secondary);" id="customerPoolPageInfo">
+                Showing records
+              </div>
+              <div style="display: flex; gap: 0.5rem;">
+                <button class="btn btn-sm btn-outline" id="btnCustomerPrev" disabled>Previous</button>
+                <button class="btn btn-sm btn-outline" id="btnCustomerNext" disabled>Next</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 10: CALLING AGENT DASHBOARD
+             ================================================================== -->
+        <section class="view-section" id="view-agent-dashboard">
+          
+          <!-- Smart Next Recommended Call Banner -->
+          <div class="next-call-banner" id="smartNextCallBanner">
+            <div>
+              <div class="next-call-tag">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <span id="nextCallReason">Recommended Next Customer</span>
+              </div>
+              <div class="next-call-name" id="nextCallName">Loading recommendation...</div>
+              <div class="next-call-details">
+                <span id="nextCallPhone">Phone: --</span>
+                <span id="nextCallDemographics">--</span>
+                <span id="nextCallPropensity">Propensity: --</span>
+              </div>
+            </div>
+            <div class="next-call-actions">
+              <button class="btn btn-light" id="btnInitiateNextCall" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                Call Customer Now
+              </button>
+            </div>
+          </div>
+
+          <!-- Personal Agent KPI Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Assigned To Me</div>
+                <div class="kpi-value" id="kpiAgentTotalAssigned">--</div>
+                <div class="kpi-subtext">Total customers in my queue</div>
+              </div>
+              <div class="kpi-icon-badge blue">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle></svg>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Calls Completed</div>
+                <div class="kpi-value" id="kpiAgentCallsCompleted">--</div>
+                <div class="kpi-subtext">Calls made today</div>
+              </div>
+              <div class="kpi-icon-badge teal">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">My Subscriptions</div>
+                <div class="kpi-value" id="kpiAgentSubscriptions">--</div>
+                <div class="kpi-subtext">Term deposits closed</div>
+              </div>
+              <div class="kpi-icon-badge green">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path></svg>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Conversion Rate</div>
+                <div class="kpi-value" id="kpiAgentConversionRate">--%</div>
+                <div class="kpi-subtext">Personal conversion</div>
+              </div>
+              <div class="kpi-icon-badge amber">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline></svg>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Follow-ups Due</div>
+                <div class="kpi-value" id="kpiAgentFollowupsDue">--</div>
+                <div class="kpi-subtext">Callbacks scheduled</div>
+              </div>
+              <div class="kpi-icon-badge rose">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Calling Queue Preview -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">My Pending Calling Queue</h3>
+                <div class="card-subtitle">Prioritized high-propensity leads waiting for contact</div>
+              </div>
+              <button class="btn btn-outline btn-sm" id="btnGoToFullQueue">
+                View All In Queue
+              </button>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Position</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Job & Age</th>
+                    <th>Propensity Score</th>
+                    <th>Priority</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="agentDashboardQueueTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             VIEW 11: CALLING AGENT FULL QUEUE
+             ================================================================== -->
+        <section class="view-section" id="view-agent-queue">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">My Assigned Calling Queue</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Full queue ordered with High Priority customers first</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Position</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Age & Job</th>
+                    <th>Loans</th>
+                    <th>Subscription Propensity</th>
+                    <th>Priority</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="agentFullQueueTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 12: CALLING AGENT HISTORY
+             ================================================================== -->
+        <section class="view-section" id="view-agent-history">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">My Call History</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Audit record of your completed customer calls</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Call ID</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Outcome</th>
+                    <th>Duration</th>
+                    <th>Remarks</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody id="agentHistoryTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 13: CALLING AGENT FOLLOW-UPS
+             ================================================================== -->
+        <section class="view-section" id="view-agent-followups">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">My Scheduled Follow-ups</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Callbacks requested by your customers</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Scheduled Date</th>
+                    <th>Notes</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="agentFollowupsTbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 14: CALLING AGENT PERFORMANCE
+             ================================================================== -->
+        <section class="view-section" id="view-agent-performance">
+          <div class="filter-bar">
+            <div>
+              <h2 style="font-size: 1.15rem; font-weight: 700;">My Daily Progress & Performance</h2>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary);">Your personal conversion rate and queue throughput</p>
+            </div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Conversion Rate</div>
+                <div class="kpi-value" id="kpiAgentPerfConv">--%</div>
+                <div class="kpi-subtext">Successful conversions</div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Completed Calls</div>
+                <div class="kpi-value" id="kpiAgentPerfCalls">--</div>
+                <div class="kpi-subtext">Recorded calls</div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-label">Pending Queue</div>
+                <div class="kpi-value" id="kpiAgentPerfPending">--</div>
+                <div class="kpi-subtext">Remaining contacts</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 1: CALL DISPOSITION & OUTCOME LOGGER
+       ========================================================================== -->
+  <div class="modal-overlay" id="modalCallDisposition">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="callModalCustName">Customer Call in Progress</h3>
+          <p style="font-size: 0.8rem; color: var(--color-text-secondary);" id="callModalCustPhone">+91 --</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div class="live-indicator" id="callModalTimer" style="font-family: monospace; font-size: 0.85rem; font-weight: 700;">
+            00:00
+          </div>
+          <button class="close-btn" id="btnCloseCallModal">&times;</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        
+        <input type="hidden" id="callModalAssignmentId">
+        <input type="hidden" id="callModalCustomerId">
+        <input type="hidden" id="callModalCampaignId">
+
+        <div style="background-color: var(--color-background); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 1.25rem;">
+          <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-secondary); text-transform: uppercase;">Customer Intelligence Profile</div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 0.35rem;" id="callModalProfileDetails">
+            <span>Age: 25 | Student</span>
+            <span class="badge badge-high">High Propensity (93%)</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Select Call Disposition Outcome *</label>
+          <div class="outcome-options-grid">
+            
+            <label class="outcome-radio-label">
+              <input type="radio" name="callOutcomeRadio" value="Subscribed">
+              <span class="badge badge-success" style="font-size: 0.7rem;">Goal</span>
+              <span class="outcome-label-text">Subscribed</span>
+            </label>
+
+            <label class="outcome-radio-label">
+              <input type="radio" name="callOutcomeRadio" value="Interested">
+              <span class="badge badge-med" style="font-size: 0.7rem;">Warm</span>
+              <span class="outcome-label-text">Interested</span>
+            </label>
+
+            <label class="outcome-radio-label">
+              <input type="radio" name="callOutcomeRadio" value="Follow-up Required">
+              <span class="badge badge-warning" style="font-size: 0.7rem;">Action</span>
+              <span class="outcome-label-text">Follow-up</span>
+            </label>
+
+            <label class="outcome-radio-label">
+              <input type="radio" name="callOutcomeRadio" value="Unreachable">
+              <span class="badge badge-draft" style="font-size: 0.7rem;">No Ans</span>
+              <span class="outcome-label-text">Unreachable</span>
+            </label>
+
+            <label class="outcome-radio-label">
+              <input type="radio" name="callOutcomeRadio" value="Not Interested">
+              <span class="badge badge-danger" style="font-size: 0.7rem;">Declined</span>
+              <span class="outcome-label-text">Not Interested</span>
+            </label>
+
+          </div>
+        </div>
+
+        <div class="form-group" id="groupFollowupDate" style="display: none;">
+          <label class="form-label" for="callModalFollowupDate">Schedule Callback Date & Time *</label>
+          <input type="datetime-local" class="form-control" id="callModalFollowupDate">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="callModalRemarks">Agent Notes & Remarks</label>
+          <textarea class="form-control" id="callModalRemarks" placeholder="Enter notes from the call discussion..."></textarea>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="btnCancelCallModal">Cancel</button>
+        <button class="btn btn-primary" id="btnSaveCallOutcome">Save Call Outcome</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: CREATE NEW CAMPAIGN
+       ========================================================================== -->
+  <div class="modal-overlay" id="modalNewCampaign">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Create Telemarketing Campaign</h3>
+        <button class="close-btn" id="btnCloseNewCampaignModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <label class="form-label" for="newCampName">Campaign Name *</label>
+          <input type="text" class="form-control" id="newCampName" placeholder="e.g. Q4 High-Propensity Term Deposit Drive">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="newCampDescription">Description / Objective</label>
+          <textarea class="form-control" id="newCampDescription" placeholder="Targeting term deposit clients using XGBoost ML prioritization..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="newCampTarget">Target Calls Quota</label>
+          <input type="number" class="form-control" id="newCampTarget" value="50" min="1">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="btnCancelNewCampaignModal">Cancel</button>
+        <button class="btn btn-primary" id="btnSubmitNewCampaign">Create Draft Campaign</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 3: WORKLOAD DISTRIBUTION & PREVIEW
+       ========================================================================== -->
+  <div class="modal-overlay" id="modalDistribute">
+    <div class="modal" style="max-width: 640px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Smart Workload Distribution</h3>
+        <button class="close-btn" id="btnCloseDistributeModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <label class="form-label" for="distributeCampSelect">Select Active Campaign</label>
+          <select class="form-control" id="distributeCampSelect">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="distributeMaxPerAgent">Max Customers Per Agent (Optional)</label>
+          <input type="number" class="form-control" id="distributeMaxPerAgent" placeholder="Leave empty for equal distribution">
+        </div>
+
+        <button class="btn btn-outline" id="btnPreviewDistribution" style="margin-bottom: 1.25rem; width: 100%;">
+          Generate Workload Preview
+        </button>
+
+        <div id="distributionPreviewContainer" style="display: none;">
+          <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-text-primary);">
+            Simulated Agent Allocation:
+          </div>
+          <div id="distributionPreviewCards" style="display: flex; flex-direction: column; gap: 0.6rem;">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="btnCancelDistributeModal">Cancel</button>
+        <button class="btn btn-primary" id="btnCommitDistribution" disabled>Commit Assignments</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 4: SWITCH USER / LOGIN MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="modalSwitchUser">
+    <div class="modal" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Switch Active Workspace</h3>
+        <button class="close-btn" id="btnCloseSwitchUserModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
+          Select a Call Center team account to experience the role-specific permissions and workflow:
+        </p>
+        
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          
+          <button class="btn btn-outline user-switch-card" data-username="leader" data-role="leader" style="justify-content: flex-start; padding: 0.85rem 1rem;">
+            <div class="avatar" style="background-color: var(--color-primary); margin-right: 0.75rem;">VM</div>
+            <div style="text-align: left;">
+              <div style="font-weight: 700; color: var(--color-text-primary);">Vikram Malhotra</div>
+              <div style="font-size: 0.75rem; color: var(--color-primary); font-weight: 600;">Call Center Team Leader</div>
+            </div>
+          </button>
+
+          <button class="btn btn-outline user-switch-card" data-username="agent1" data-role="agent" style="justify-content: flex-start; padding: 0.85rem 1rem;">
+            <div class="avatar" style="background-color: var(--color-secondary); margin-right: 0.75rem;">RS</div>
+            <div style="text-align: left;">
+              <div style="font-weight: 700; color: var(--color-text-primary);">Rahul Sharma</div>
+              <div style="font-size: 0.75rem; color: var(--color-secondary); font-weight: 600;">Calling Agent (Queue: High Priority)</div>
+            </div>
+          </button>
+
+          <button class="btn btn-outline user-switch-card" data-username="agent2" data-role="agent" style="justify-content: flex-start; padding: 0.85rem 1rem;">
+            <div class="avatar" style="background-color: var(--color-secondary); margin-right: 0.75rem;">PP</div>
+            <div style="text-align: left;">
+              <div style="font-weight: 700; color: var(--color-text-primary);">Priya Patel</div>
+              <div style="font-size: 0.75rem; color: var(--color-secondary); font-weight: 600;">Calling Agent</div>
+            </div>
+          </button>
+
+          <button class="btn btn-outline user-switch-card" data-username="agent3" data-role="agent" style="justify-content: flex-start; padding: 0.85rem 1rem;">
+            <div class="avatar" style="background-color: var(--color-secondary); margin-right: 0.75rem;">AV</div>
+            <div style="text-align: left;">
+              <div style="font-weight: 700; color: var(--color-text-primary);">Amit Verma</div>
+              <div style="font-size: 0.75rem; color: var(--color-secondary); font-weight: 600;">Calling Agent</div>
+            </div>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Alert Notifications Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Logic -->
+  <script src="js/app.js"></script>
+</body>
+</html>
